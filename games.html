@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <br>
+      <form class="form-group" method="get" action="./search" id="filters">
+        <label>Filter:
+          <input class="form-inline" name="game_name" placeholder="Filter by the name">
+          <input class="form-inline" name="score" type="number" placeholder="Minimum score">
+        </label>
+        <br>
+        <label>Release date between:
+          <input class="form-inline" name="start" type="date">
+        </label>
+        <label> and
+          <input class="form-inline" name="end" type="date">
+        </label>
+        <input type="submit" class="btn btn-secondary">
+      </form>
+      <table class="table mt-5">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Release date</th>
+            <th scope="col">Price</th>
+            <th scope="col">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in data %}
+          <tr>
+            <td>
+              <form method="post" action="buy">
+                <input hidden="hidden" name="id" value={{item.GAME_ID}}>
+                <input type="submit" class="btn btn-primary" value="Buy" >
+              </form>
+            </td>
+            <td>{{item.GAME_ID}}</td>
+            <td>{{item.GAME_NAME}}</td>
+            <td>{{item.RELEASE_DATE}}</td>
+            <td>{{item.PRICE}}</td>
+            <td>{{item.SCORE}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</div>
+{% endblock %}

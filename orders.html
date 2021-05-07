@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <br>
+      <table class="table mt-5">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Date</th>
+            <th scope="col">Discount</th>
+            <th scope="col">Gross amount</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">#</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in data %}
+          <tr>
+            <td>{{item.ORDER_ID}}</td>
+            <td>{{item.ORDER_DATE}}</td>
+            <td>{{item.DISCOUNT}}</td>
+            <td>{{item.GROSS_AMOUNT}}</td>
+            <td>{{item.GAME_NAME}}</td>
+            <td>{{item.PRICE}}</td>
+
+            <td>
+              <form method="post" action="buy">
+                <input hidden="hidden" name="id" value={{item.ORDER_ID}}>
+                <input type="submit" class="btn btn-primary" value="Buy" >
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</div>
+{% endblock %}
