@@ -3,13 +3,23 @@
 <div class="container" >
     <br>
     <br>
-    <p>You are Editing Order nr. {{data.ORDER_ID}}</p>
+    <p>You are editing order nr. {{data.ORDER_ID}}</p>
   <form style="left-margin:20%" action="edit_order" method="POST">
       <label>Order id</label>
-      <input  class="form-inline" name="ORDER_ID" disabled="true" value={{data.ORDER_ID}}>
+      <input  class="form-inline" name="ORDER_ID" disabled="disabled" value={{data.ORDER_ID}}>
       <input  class="form-inline" name="ORDER_ID" hidden="hidden" value={{data.ORDER_ID}}>
+      <label>Game id</label>
+        <select class="form-inline" name="GAME_ID" id="selectGame">
+
+          {% for item in games %}
+          <option value={{item.GAME_ID}}>{{item.GAME_NAME}} (ID: {{item.GAME_ID}})</option>
+            {% endfor %}
+        </select>
+        <script>
+            document.getElementById('selectGame').value={{data.GAME_ID}}
+        </script>
       <label>Order Date</label>
-      <input  class="form-inline" name="ORDER_DATE" value={{data.ORDER_DATE}}>
+      <input  class="form-inline" type="date" name="ORDER_DATE" value={{data.ORDER_DATE}}>
       <label>Amount </label>
       <input  class="form-inline" name="NET_AMOUNT" value={{data.NET_AMOUNT}}>
       <label>Discount</label>
