@@ -27,10 +27,11 @@
             <td>{{item.PRICE}}</td>
 
             <td>
-              <form method="post" action="buy">
+              <form method="POST" action="delete_order">
                 <input hidden="hidden" name="id" value={{item.ORDER_ID}}>
-                <input type="submit" class="btn btn-primary" value="Buy" >
+                <input type="submit" class="btn btn-danger" value="Delete" >
               </form>
+             <a href="edit_order?ORDER_ID={{item.ORDER_ID}}" class="btn btn-warning" role="button">Edit</a>
             </td>
           </tr>
           {% endfor %}

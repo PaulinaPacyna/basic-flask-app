@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="container" >
+    <br>
+    <br>
+    <p>You are Editing Order nr. {{data.ORDER_ID}}</p>
+  <form style="left-margin:20%" action="edit_order" method="POST">
+      <label>Order id</label>
+      <input  class="form-inline" name="ORDER_ID" disabled="true" value={{data.ORDER_ID}}>
+      <input  class="form-inline" name="ORDER_ID" hidden="hidden" value={{data.ORDER_ID}}>
+      <label>Order Date</label>
+      <input  class="form-inline" name="ORDER_DATE" value={{data.ORDER_DATE}}>
+      <label>Amount </label>
+      <input  class="form-inline" name="NET_AMOUNT" value={{data.NET_AMOUNT}}>
+      <label>Discount</label>
+      <input  class="form-inline" name="DISCOUNT" value={{data.DISCOUNT}}>
+      <label>Gross amount</label>
+      <input  class="form-inline" name="GROSS_AMOUNT" value={{data.GROSS_AMOUNT}}>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+  
+  <div class="row mt-5">
+    <div class="col-12">      
+    </div>
+  </div>
+</div>
+{% endblock %}
