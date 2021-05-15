@@ -151,21 +151,28 @@ def edit_order():
                 else:
                     return redirect(url_for("get_orders"))
             if request.method == "POST":
+                discount = request.form.get("DISCOUNT")
+                try:
+                    discount = float(discount)
+                except:
+                    discount = None
                 columns = [
                     "ORDER_DATE",
                     "GAME_ID",
                     "NET_AMOUNT",
-                    "DISCOUNT",
                     "GROSS_AMOUNT",
                 ]
                 statement = (
                     "UPDATE ORDERS SET "
                     + ", ".join([f"{c}=?" for c in columns])
+                    + (", DISCOUNT = ? " if discount else ", DISCOUNT = NULL")
                     + " where ORDER_ID = ?"
                 )
-                parameters = [request.form.get(c) for c in columns] + [
-                    request.form.get("ORDER_ID")
-                ]
+                parameters = (
+                    [request.form.get(c) for c in columns]
+                    + ([discount] if discount else [])
+                    + [request.form.get("ORDER_ID")]
+                )
                 print(statement)
                 print(parameters)
                 print(request.form.get("GAME_ID"))
