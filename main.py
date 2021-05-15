@@ -175,7 +175,6 @@ def edit_order():
                 )
                 print(statement)
                 print(parameters)
-                print(request.form.get("GAME_ID"))
                 cursor.execute(statement, *parameters)
                 cursor.commit()
                 return redirect(url_for("get_orders"))
