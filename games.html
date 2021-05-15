@@ -16,7 +16,7 @@
         <label> and
           <input class="form-inline" name="end" type="date">
         </label>
-        <input type="submit" class="btn btn-secondary">
+        <input type="submit" class="btn btn-secondary" value="Submit">
       </form>
       <table class="table mt-5">
         <thead>
@@ -34,6 +34,7 @@
           <tr>
             <td>
               <form method="post" action="buy">
+                <input class="form-inline" type="number" name="GROSS_AMOUNT" value=1 >
                 <input hidden="hidden" name="id" value={{item.GAME_ID}}>
                 <input type="submit" class="btn btn-primary" value="Buy" >
               </form>

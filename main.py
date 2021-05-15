@@ -67,6 +67,7 @@ def games():
 @app.route("/buy", methods=["POST"])
 def buy():
     id = request.form.get("id")
+    gross_amount = request.form.get("GROSS_AMOUNT")
     with get_connection() as connection:
         with connection.cursor() as cursor:  # this construction calls cursor.close() at the end
             game = cursor.execute(
@@ -87,7 +88,7 @@ def buy():
                 id,
                 game[3],
                 0.2 if discount else None,
-                1,
+                gross_amount,
             )
             cursor.commit()
             return f"""
