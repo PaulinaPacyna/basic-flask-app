@@ -87,7 +87,7 @@ def buy():
                 id,
                 game[3],
                 0.2 if discount else None,
-                (0.2 * float(game[3]) if discount else float(game(3))) * 1.23,
+                (0.8 * float(game[3]) if discount else float(game[3])) * 1.23,
             )
             cursor.commit()
             return f"""
