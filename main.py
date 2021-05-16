@@ -67,7 +67,6 @@ def games():
 @app.route("/buy", methods=["POST"])
 def buy():
     id = request.form.get("id")
-    gross_amount = request.form.get("GROSS_AMOUNT")
     with get_connection() as connection:
         with connection.cursor() as cursor:  # this construction calls cursor.close() at the end
             game = cursor.execute(
@@ -88,7 +87,7 @@ def buy():
                 id,
                 game[3],
                 0.2 if discount else None,
-                gross_amount,
+                (0.2 * float(game[3]) if discount else float(game(3))) * 1.23,
             )
             cursor.commit()
             return f"""
@@ -102,7 +101,7 @@ def get_orders():
     with get_connection() as connection:
         with connection.cursor() as cursor:  # this construction calls cursor.close() at the end
             data = cursor.execute(
-                """SELECT ORDER_ID, ORDER_DATE, DISCOUNT, GROSS_AMOUNT,  GAME_NAME, round(PRICE, 2) as PRICE
+                """SELECT ORDER_ID, ORDER_DATE, DISCOUNT, GROSS_AMOUNT,  GAME_NAME, NET_AMOUNT
                                     FROM ORDERS O JOIN GAMES G ON G.GAME_ID=O.GAME_ID"""
             ).fetchall()
             # somehow, Gross amount and price was displayed with 4 digits after the comma.
@@ -115,13 +114,13 @@ def get_orders():
                     "DISCOUNT",
                     "GROSS_AMOUNT",
                     "GAME_NAME",
-                    "PRICE",
+                    "NET_AMOUNT",
                 ],
             )
             data["GROSS_AMOUNT"] = data["GROSS_AMOUNT"].astype(float)
             data["GROSS_AMOUNT"] = np.round(data["GROSS_AMOUNT"], 2)
-            data["PRICE"] = data["PRICE"].astype(float)
-            data["PRICE"] = np.round(data["PRICE"], 2)
+            data["NET_AMOUNT"] = data["NET_AMOUNT"].astype(float)
+            data["NET_AMOUNT"] = np.round(data["NET_AMOUNT"], 2)
             return render_template("orders.html", data=data.to_records())
 
 
